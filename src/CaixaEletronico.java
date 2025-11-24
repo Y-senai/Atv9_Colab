@@ -1,11 +1,15 @@
 package src;
 
-class Caixa {
+class CaixaEletronico {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        Banco banco = new Banco();
+
         ContaPoupanca conta1 = new ContaPoupanca(1000, "Joao", 0);
-        conta1.depositar(-500);
+        banco.adicionarConta(conta1.getTitular(), conta1);
+
+        System.out.println(banco.buscarConta("Joao").getTitular());
+
         conta1.depositar(500);
 
         conta1.depositar(500);

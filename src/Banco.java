@@ -1,1 +1,26 @@
 package src;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Banco {
+
+    private Map<String, Conta> contas = new HashMap<>();
+
+    public void adicionarConta(String nome, Conta conta) {
+        contas.put(nome, conta);
+    }
+
+    // nunca sei se essas throw new Exception dão certo
+    public Conta buscarConta(String nome) {
+        if (nome == null || nome.isEmpty()) {
+            throw new IllegalArgumentException(
+                "Nome da conta não pode ser vazio ou nulo"
+            );
+        }
+        if (!contas.containsKey(nome)) {
+            throw new IllegalArgumentException("Conta não encontrada");
+        }
+        return contas.get(nome);
+    }
+}

@@ -14,9 +14,17 @@ public class ContaCorrente extends Conta {
         this.limiteChequeEspecial = limiteChequeEspecial;
     }
 
+    // sujeito a mudança.  ----  vai ter que botar o SaldoInsuficienteException e também poderia mostrar o saldo inicial + o saldo real pro usuário,
+    // mas isso poderia ser em um decorador ou em outra função
     public void sacar(double valor) {
-        if (valor > getSaldo()) {
-            System.out.println("Saldo insuficiente");
+        if (valor <= 0) {
+            System.out.println("Valor inválido");
+            return;
         }
+        if (valor > (getSaldo() + limiteChequeEspecial)) {
+            System.out.println("Saldo insuficiente");
+            return;
+        }
+        this.saldo -= valor;
     }
 }
