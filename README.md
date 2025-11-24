@@ -1,12 +1,13 @@
 ﻿# Atv-9_Collab
 Atividade colaborativa em sala
 
-Equipe:
-Yuz Crisllan\n
-Davi Souza\n
-Raphael Miranda\n
-Rafael Oliveira\n
-Letícia Martins\n
-João sla oq\n
+Equipe:<br>
+Yuz Crisllan<br>
+Davi Souza<br>
+Raphael Miranda<br>
+Rafael Oliveira<br>
+Letícia Martins<br>
+João sla oq<br>
+
 
 
