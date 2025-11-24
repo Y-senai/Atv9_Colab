@@ -14,6 +14,7 @@ public class ContaPoupanca extends Conta {
         }
         if (valor > getSaldo()) {
             System.out.println("Saldo insuficiente");
+            return;
         }
         this.saldo -= valor;
     }
