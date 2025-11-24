@@ -14,9 +14,7 @@ public class Banco {
     // nunca sei se essas throw new Exception dão certo
     public Conta buscarConta(String nome) {
         if (nome == null || nome.isEmpty()) {
-            throw new IllegalArgumentException(
-                "Nome da conta não pode ser vazio ou nulo"
-            );
+            throw new IllegalArgumentException("Nome da conta invalido");
         }
         if (!contas.containsKey(nome)) {
             throw new IllegalArgumentException("Conta não encontrada");
