@@ -49,7 +49,6 @@ public class Banco {
         Conta contaOrigem = buscarConta(origem);
         Conta contaDestino = buscarConta(destino);
 
-        // Verifica se contas existem
         if (contaOrigem == null) {
             throw new IllegalArgumentException(
                 "Conta de origem não encontrada."
@@ -61,17 +60,13 @@ public class Banco {
             );
         }
 
-        // Verifica valor da transferência
         if (valor <= 0) {
             throw new IllegalArgumentException(
                 "O valor da transferência deve ser positivo."
             );
         }
 
-        // 1. Tenta sacar da conta de origem
         contaOrigem.sacar(valor);
-
-        // 2. Deposita na conta de destino
         contaDestino.depositar(valor);
     }
 }

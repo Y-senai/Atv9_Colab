@@ -6,6 +6,8 @@ abstract class Conta {
     protected String titular;
     protected double saldo;
     protected Transacao[] transacoes;
+
+    //  ter um limite de transações registraveis é uma anomalia mas não sei se é facil implementar um array dinamico em java
     protected int tamanhoTrans = 100;
 
     protected int qtdTransacoes;
@@ -42,6 +44,8 @@ abstract class Conta {
     }
 
     public void depositar(double valor) {
+        ////// Verificações //////
+
         if (this.transacoes == null) {
             System.out.println("Transações não inicializadas");
             return;
@@ -56,6 +60,8 @@ abstract class Conta {
             System.out.println("Valor não pode ser negativo");
             return;
         }
+
+        ///// Execução //////
 
         this.saldo += valor;
 

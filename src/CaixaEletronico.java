@@ -24,7 +24,7 @@ public class CaixaEletronico {
 
     public void registrarConta(Banco banco) {
         System.out.println("Você deseja uma corrente ou poupança?");
-        System.out.println("1 - poupança\n2 - corrente");
+        System.out.println("1 - Poupança\n2 - Corrente");
         try {
             int opcao = sc.nextInt();
             if (opcao == 1) {

@@ -11,11 +11,12 @@ public class Main {
         CaixaEletronico ce = new CaixaEletronico();
         boolean contaRegistrada = false;
         String contaAtiva = String.valueOf(banco.qtdContas);
+        boolean repetir = true;
 
         ContaPoupanca contaTeste = new ContaPoupanca("0", "Cleiton", 0);
         banco.adicionarConta(contaTeste.getNumero(), contaTeste);
 
-        while (true) {
+        while (repetir) {
             System.out.println("\n===== MENU DO BANCO =====");
             System.out.println("1. Criar Conta");
             System.out.println("2. Sacar");
@@ -27,6 +28,7 @@ public class Main {
             System.out.print("Escolha: ");
 
             int opcao = 0;
+            double valor = 0;
 
             try {
                 opcao = sc.nextInt();
@@ -53,9 +55,17 @@ public class Main {
                     System.out.println(
                         "O seu saldo é de : " + usuarioConta.getSaldo()
                     );
-                    System.out.println("Digite o valor a ser sacado: ");
-                    double valor = sc.nextDouble();
-                    usuarioConta.sacar(valor);
+                    double valorSaque = 0;
+                    try {
+                        System.out.println("Digite o valor a ser sacado: ");
+                        valorSaque = sc.nextDouble();
+                    } catch (InputMismatchException e) {
+                        System.out.println(
+                            "Entrada inválida! Digite um número."
+                        );
+                        break;
+                    }
+                    usuarioConta.sacar(valorSaque);
                     break;
                 case 3:
                     if (!contaRegistrada) {
@@ -67,11 +77,17 @@ public class Main {
                     Conta usuarioContaDeposito = banco.buscarConta(contaAtiva);
 
                     System.out.println("Digite o valor a ser depositado: ");
-                    valor = sc.nextDouble();
-                    usuarioContaDeposito.depositar(valor);
+                    try {
+                        double valorDeposito = sc.nextDouble();
+                        usuarioContaDeposito.depositar(valorDeposito);
+                    } catch (InputMismatchException e) {
+                        System.out.println(
+                            "Entrada inválida! Digite um número."
+                        );
+                        sc.nextLine();
+                    }
                     break;
                 case 4:
-                    // resto a se fazer a partir daqui
                     if (!contaRegistrada) {
                         System.out.println(
                             "Você precisa criar uma conta antes de sacar."
@@ -79,16 +95,27 @@ public class Main {
                         break;
                     }
                     System.out.println("O quanto você quer transferir?");
-                    valor = sc.nextDouble();
-
                     try {
-                        banco.realizarTransferencia(contaAtiva, "0", valor);
-                    } catch (SaldoInsuficienteException e) {
+                        double valorTransferencia = sc.nextDouble();
+
+                        try {
+                            banco.realizarTransferencia(
+                                contaAtiva,
+                                "0",
+                                valorTransferencia
+                            );
+                        } catch (SaldoInsuficienteException e) {
+                            System.out.println(
+                                "Transferência falhou: " + e.getMessage()
+                            );
+                        }
+                        System.out.println(contaTeste.getSaldo());
+                    } catch (InputMismatchException e) {
                         System.out.println(
-                            "Transferência falhou: " + e.getMessage()
+                            "Entrada inválida! Digite um número."
                         );
+                        sc.nextLine();
                     }
-                    System.out.println(contaTeste.getSaldo());
                     break;
                 case 5:
                     if (!contaRegistrada) {
@@ -114,11 +141,12 @@ public class Main {
                     break;
                 case 7:
                     System.out.println("Obrigado por usar nosso sistema!");
-                    System.exit(0);
+                    repetir = false;
                     break;
                 default:
                     System.out.println("Opção inválida!");
             }
         }
+        sc.close();
     }
 }
