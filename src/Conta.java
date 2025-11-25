@@ -2,7 +2,7 @@ package src;
 
 abstract class Conta {
 
-    protected int numero;
+    protected String numero;
     protected String titular;
     protected double saldo;
     protected Transacao[] transacoes;
@@ -10,7 +10,7 @@ abstract class Conta {
 
     protected int qtdTransacoes;
 
-    public Conta(int numero, String titular, double saldo) {
+    public Conta(String numero, String titular, double saldo) {
         if (saldo < 0) {
             throw new IllegalArgumentException("Saldo não pode ser negativo");
         }
@@ -21,7 +21,7 @@ abstract class Conta {
         this.qtdTransacoes = 0;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
@@ -33,7 +33,7 @@ abstract class Conta {
         return saldo;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
