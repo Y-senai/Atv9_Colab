@@ -5,7 +5,7 @@ public class ContaCorrente extends Conta {
     private double limiteChequeEspecial;
 
     public ContaCorrente(
-        int numero,
+        String numero,
         String titular,
         double saldo,
         double limiteChequeEspecial

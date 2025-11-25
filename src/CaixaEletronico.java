@@ -2,60 +2,46 @@ package src;
 
 import java.util.Scanner;
 
-class CaixaEletronico {
+public class CaixaEletronico {
 
-    public static void main(String[] args) {
-        Banco banco = new Banco();
-        Scanner sc = new Scanner(System.in);
+    Scanner sc = new Scanner(System.in);
 
-        System.out.println("Bem-vindo ao Caixa Eletrônico!");
+    public ContaPoupanca criarContaP(Banco banco) {
+        sc.nextLine();
+        System.out.println("Digite seu nome: ");
+        String nome = sc.nextLine();
+        String numero = String.valueOf(banco.qtdContas);
+        return new ContaPoupanca(numero, nome, 0);
+    }
 
-        System.out.println("Escolha uma opção:");
-        System.out.println("1 - Criar uma conta");
-        System.out.println("2 - Sacar dinheiro");
-        System.out.println("3 - Depositar dinheiro");
-        System.out.println("4 - Transferir dinheiro");
-        System.out.println("5 - Consultar saldo");
-        System.out.println("6 - Exibir extrato");
-        System.out.println("7 - Sair");
+    public ContaCorrente criarContaC(Banco banco, double ChequeEspecial) {
+        sc.nextLine();
+        System.out.println("Digite seu nome: ");
+        String nome = sc.nextLine();
+        String numero = String.valueOf(banco.qtdContas);
+        return new ContaCorrente(numero, nome, 0, 0);
+    }
 
-        int opcao = 0;
-
-        while (true) {
-            System.out.println("Escolha uma opção entre 1 e 7");
-            try {
-                opcao = sc.nextInt();
-
-                if (opcao < 1 || opcao > 7) {
-                    System.out.println("Opção inválida!");
-                    continue;
-                }
-
-                break;
-            } catch (java.util.InputMismatchException e) {
-                System.out.println("Entrada inválida!");
-                sc.nextLine();
+    public void registrarConta(Banco banco) {
+        System.out.println("Você deseja uma corrente ou poupança?");
+        System.out.println("1 - poupança\n2 - corrente");
+        try {
+            int opcao = sc.nextInt();
+            if (opcao == 1) {
+                ContaPoupanca contaP = criarContaP(banco);
+                String numero = String.valueOf(banco.qtdContas);
+                banco.adicionarConta(numero, contaP);
+            } else if (opcao == 2) {
+                System.out.println("Digite o limite do cheque especial: ");
+                double limite = sc.nextDouble();
+                ContaCorrente contaC = criarContaC(banco, limite);
+                String numero = String.valueOf(banco.qtdContas);
+                banco.adicionarConta(numero, contaC);
+            } else {
+                System.out.println("Opção inválida");
             }
-
-            switch (opcao) {
-                case 1:
-                    System.out.println("Criando conta...");
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
-                case 6:
-                    break;
-                case 7:
-                    System.out.println("Obrigado, tenha um bom dia!");
-                    System.exit(0);
-                    break;
-            }
+        } catch (Exception e) {
+            System.out.println("Opção inválida");
         }
     }
 }

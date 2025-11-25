@@ -2,7 +2,7 @@ package src;
 
 public class ContaPoupanca extends Conta {
 
-    public ContaPoupanca(int numero, String titular, double saldo) {
+    public ContaPoupanca(String numero, String titular, double saldo) {
         super(numero, titular, saldo);
     }
 
