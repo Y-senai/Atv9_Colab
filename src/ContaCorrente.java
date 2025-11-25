@@ -17,6 +17,16 @@ public class ContaCorrente extends Conta {
     // sujeito a mudança.  ----  vai ter que botar o SaldoInsuficienteException e também poderia mostrar o saldo inicial + o saldo real pro usuário,
     // mas isso poderia ser em um decorador ou em outra função
     public void sacar(double valor) {
+        if (this.transacoes == null) {
+            System.out.println("Transações não inicializadas");
+            return;
+        }
+
+        if (this.qtdTransacoes == this.tamanhoTrans) {
+            System.out.println("Limite de transações atingido");
+            return;
+        }
+
         if (valor <= 0) {
             System.out.println("Valor inválido");
             return;
@@ -26,5 +36,10 @@ public class ContaCorrente extends Conta {
             return;
         }
         this.saldo -= valor;
+
+        if (valor > 0) {
+            this.transacoes[qtdTransacoes] = new Transacao("Saque", valor);
+            this.qtdTransacoes++;
+        }
     }
 }

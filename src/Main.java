@@ -1,8 +1,5 @@
 package src;
 
-// tá no beta
-//
-//
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -16,7 +13,7 @@ public class Main {
         String contaAtiva = String.valueOf(banco.qtdContas);
 
         ContaPoupanca contaTeste = new ContaPoupanca("0", "Cleiton", 0);
-        banco.adicionarConta(contaTeste);
+        banco.adicionarConta(contaTeste.getNumero(), contaTeste);
 
         while (true) {
             System.out.println("\n===== MENU DO BANCO =====");
@@ -54,7 +51,7 @@ public class Main {
 
                     Conta usuarioConta = banco.buscarConta(contaAtiva);
                     System.out.println(
-                        "O seu saldo é de :" + usuarioConta.getSaldo()
+                        "O seu saldo é de : " + usuarioConta.getSaldo()
                     );
                     System.out.println("Digite o valor a ser sacado: ");
                     double valor = sc.nextDouble();
@@ -83,11 +80,14 @@ public class Main {
                     }
                     System.out.println("O quanto você quer transferir?");
                     valor = sc.nextDouble();
-                    usuarioConta.transferir(
-                        banco.buscarConta(contaAtiva),
-                        banco.buscarConta("0"),
-                        valor
-                    );
+
+                    try {
+                        banco.realizarTransferencia(contaAtiva, "0", valor);
+                    } catch (SaldoInsuficienteException e) {
+                        System.out.println(
+                            "Transferência falhou: " + e.getMessage()
+                        );
+                    }
                     System.out.println(contaTeste.getSaldo());
                     break;
                 case 5:
@@ -97,6 +97,11 @@ public class Main {
                         );
                         break;
                     }
+                    System.out.println();
+                    System.out.println(
+                        "O seu saldo é " +
+                            banco.buscarConta(contaAtiva).getSaldo()
+                    );
                     break;
                 case 6:
                     if (!contaRegistrada) {
@@ -105,6 +110,7 @@ public class Main {
                         );
                         break;
                     }
+                    banco.buscarConta(contaAtiva).mostrarTransacoes();
                     break;
                 case 7:
                     System.out.println("Obrigado por usar nosso sistema!");
